@@ -1,4 +1,4 @@
-This repo is a docker based local environment
+A docker based local environment
 
 ## Setup
 
