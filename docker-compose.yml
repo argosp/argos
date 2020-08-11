@@ -1,0 +1,35 @@
+version: "3.3"
+services:
+  graphql:
+    image: 'node:10.15'
+    container_name: ${PROJECT_NAME}_graph
+    working_dir: /usr/src/app
+    volumes:
+      - ./trialgraph:/usr/src/app
+    environment:
+      PORT: ${GRAPH_PORT}
+      DEBUG_PORT: ${GRAPH_DEBUG_PORT}
+      ROOT_URI: ${ROOT_URI}
+    ports:
+      - ${GRAPH_PORT}:8888
+      - ${GRAPH_DEBUG_PORT}:9229
+    expose:
+      - ${GRAPH_PORT}
+    command: npm run start:debug # npm run dev
+  dashboard:
+    container_name: ${PROJECT_NAME}_dashboard
+    build: 
+      context: .
+      dockerfile: ./utils/dockers/trialdash/Dockerfile
+    working_dir: /usr/src/app
+    volumes:
+      - ./trialdash:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${DASHBOARD_PORT}:3000
+    expose:
+      - "${DASHBOARD_PORT}"   
+    environment:
+      PORT: ${DASHBOARD_PORT}
+      FCC_URL: "http://graphql:8888"
+    command: yarn run dev
