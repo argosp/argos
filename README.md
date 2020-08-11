@@ -5,7 +5,7 @@ A docker based local environment
 Clone repo with the submodules:
 
 ```bash
-git clone --recursive
+git clone --recursive git@github.com:argosp/argos.git
 ```
 
 Go inside folder
