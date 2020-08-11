@@ -1,7 +1,9 @@
 version: "3.3"
 services:
   graphql:
-    image: 'node:10.15'
+    build: 
+      context: .
+      dockerfile: ./utils/dockers/trialgraph/Dockerfile
     container_name: ${PROJECT_NAME}_graph
     working_dir: /usr/src/app
     volumes:
@@ -15,7 +17,7 @@ services:
       - ${GRAPH_DEBUG_PORT}:9229
     expose:
       - ${GRAPH_PORT}
-    command: npm run start:debug # npm run dev
+    command: npm run dev #npm run start:debug 
   dashboard:
     container_name: ${PROJECT_NAME}_dashboard
     build: 
