@@ -9,7 +9,7 @@ services:
     volumes:
       - ./trialgraph:/usr/src/app
       - /usr/src/app/node_modules
-      - ./uploads:/usr/src/app
+      - ./uploads:/usr/src/app/uploads
     environment:
       PORT: ${GRAPH_PORT}
       DEBUG_PORT: ${GRAPH_DEBUG_PORT}
