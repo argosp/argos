@@ -14,6 +14,7 @@ services:
       PORT: ${GRAPH_PORT}
       DEBUG_PORT: ${GRAPH_DEBUG_PORT}
       ROOT_URI: ${ROOT_URI}
+      ROOT_TOKEN: ${ROOT_TOKEN}
     ports:
       - ${GRAPH_PORT}:8888
       - ${GRAPH_DEBUG_PORT}:9229
