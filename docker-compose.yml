@@ -30,7 +30,7 @@ services:
       - ./trialdash:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - ${DASHBOARD_PORT}:3000
+      - ${DASHBOARD_PORT}:${DASHBOARD_PORT}
     expose:
       - "${DASHBOARD_PORT}"   
     environment:
