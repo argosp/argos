@@ -33,3 +33,11 @@ docker-compose up -d
 ```
 Dev enviroment:  
 https://argos.new-aks-stage.linnovate.net/
+
+
+need add argos.new-aks-stage.linnovate.net to /etc/hosts 
+127.0.0.1 argos.new-aks-stage.linnovate.net
+
+ports:
+ - 8080 http 
+ - 4433 https
