@@ -39,6 +39,6 @@ need add argos.new-aks-stage.linnovate.net to /etc/hosts
 
 127.0.0.1 argos.new-aks-stage.linnovate.net
 
-ports:
- - http://argos.new-aks-stage.linnovate.net  
+web ports:
+ - http://argos.new-aks-stage.linnovate.net:8080  
  - https://argos.new-aks-stage.linnovate.net:4433 
