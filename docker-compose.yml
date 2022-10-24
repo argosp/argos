@@ -1,74 +1,41 @@
-version: '2'
+version: "3.3"
 services:
   graphql:
-    image: 'node:10.15'
-    container_name: 'argos_graphql'
+    build:
+      context: .
+      dockerfile: ./utils/dockers/trialgraph/Dockerfile
+    container_name: ${PROJECT_NAME}_graph
     working_dir: /usr/src/app
     volumes:
-    - ./trialgraph:/usr/src/app
-    - ./uploads:/usr/src/app/uploads
+      - ./trialgraph:/usr/src/app
+      - /usr/src/app/node_modules
+      - ./uploads:/usr/src/app/uploads
     environment:
-      PORT: 8888
-      DEBUG_PORT: 9229
-      ROOT_URI: "https://root.new-aks-stage.linnovate.net"
+      PORT: ${GRAPH_PORT}
+      DEBUG_PORT: ${GRAPH_DEBUG_PORT}
+      ROOT_URI: ${ROOT_URI}
+      ROOT_TOKEN: ${ROOT_TOKEN}
     ports:
-    - 8888:8888
-    - 9229:9229
+      - ${GRAPH_PORT}:8888
+      - ${GRAPH_DEBUG_PORT}:9229
     expose:
-    - "8888"
-    command: npm run dev
+      - ${GRAPH_PORT}
+    command: npm run dev #npm run start:debug
   dashboard:
-    image: 'node:10.15'
-    container_name: 'argos_dashboard'
+    container_name: ${PROJECT_NAME}_dashboard
+    build:
+      context: .
+      dockerfile: ./utils/dockers/trialdash/Dockerfile
     working_dir: /usr/src/app
     volumes:
-    - ./trialdash:/usr/src/app
+      - ./trialdash:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
-    - 3000:3000
+      - ${DASHBOARD_PORT}:${DASHBOARD_PORT}
     expose:
-    - "3000"
+      - "${DASHBOARD_PORT}"
     environment:
-      PORT: 3000
-      FCC_URL: "http://localhost:8888"
+      PORT: ${DASHBOARD_PORT}
+      REACT_APP_FCC_URL: "http://localhost:${GRAPH_PORT}"
+      FCC_URL: "http://graphql:8888"
     command: yarn run dev
-# version: "3.3"
-# services:
-#   graphql:
-#     build: 
-#       context: .
-#       dockerfile: ./utils/dockers/trialgraph/Dockerfile
-#     container_name: ${PROJECT_NAME}_graph
-#     working_dir: /usr/src/app
-#     volumes:
-#       - ./trialgraph:/usr/src/app
-#       - /usr/src/app/node_modules
-#       - ./uploads:/usr/src/app/uploads
-#     environment:
-#       PORT: ${GRAPH_PORT}
-#       DEBUG_PORT: ${GRAPH_DEBUG_PORT}
-#       ROOT_URI: ${ROOT_URI}
-#       ROOT_TOKEN: ${ROOT_TOKEN}
-#     ports:
-#       - ${GRAPH_PORT}:8888
-#       - ${GRAPH_DEBUG_PORT}:9229
-#     expose:
-#       - ${GRAPH_PORT}
-#     command: npm run dev #npm run start:debug 
-#   dashboard:
-#     container_name: ${PROJECT_NAME}_dashboard
-#     build: 
-#       context: .
-#       dockerfile: ./utils/dockers/trialdash/Dockerfile
-#     working_dir: /usr/src/app
-#     volumes:
-#       - ./trialdash:/usr/src/app
-#       - /usr/src/app/node_modules
-#     ports:
-#       - ${DASHBOARD_PORT}:${DASHBOARD_PORT}
-#     expose:
-#       - "${DASHBOARD_PORT}"   
-#     environment:
-#       PORT: ${DASHBOARD_PORT}
-#       REACT_APP_FCC_URL: "http://localhost:${GRAPH_PORT}"
-#       FCC_URL: "http://graphql:8888"
-#     command: yarn run dev
