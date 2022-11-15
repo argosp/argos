@@ -25,13 +25,13 @@ cd trialgraph && git checkout master && git pull origin master && cd -
 Build the docker images
 
 ```bash
-docker-compose build
+DASHBOARD_PORT=3000 PROJECT_NAME=argos docker-compose build
 ```
 
 Run the project
 
 ```bash
-docker-compose up -d
+DASHBOARD_PORT=3000 PROJECT_NAME=argos docker-compose up -d
 ```
 Dev enviroment:  
 https://argos.new-aks-stage.linnovate.net/
