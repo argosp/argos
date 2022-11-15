@@ -1,6 +1,6 @@
 [submodule "trialdash"]
 	path = trialdash
-	url = git@github.com:argosp/trialdash.git
+	url = https://github.com/argosp/trialdash.git
 [submodule "trialgraph"]
 	path = trialgraph
-	url = git@github.com:argosp/trialgraph.git
+	url = https://github.com/argosp/trialgraph.git
