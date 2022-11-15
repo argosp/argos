@@ -22,6 +22,15 @@ cd trialdash && git checkout master && git pull origin master && cd -
 cd trialgraph && git checkout master && git pull origin master && cd -
 ```
 
+Create an `.env` file this contents:
+```
+PROJECT_NAME=argos
+GRAPH_PORT=8888
+GRAPH_DEBUG_PORT=9229
+ROOT_URI=https://root.new-aks-stage.linnovate.net
+DASHBOARD_PORT=3000
+```
+
 Build the docker images
 
 ```bash
