@@ -6,6 +6,6 @@ WORKDIR $APP_DIR
 COPY ./trialdash/package.json $APP_DIR
 RUN yarn install
 
-RUN yarn upgrade
+# RUN yarn upgrade
 COPY ./trialdash $APP_DIR
-RUN yarn build
+# RUN yarn build
