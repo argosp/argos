@@ -1,0 +1,44 @@
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.15
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - setup_remote_docker
+
+      - run:  | 
+          echo 'export IMAGE_VERSION="0.1.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
+          echo 'export NAMESPACE="argos-prod"' >> $BASH_ENV
+
+      - run: |
+          echo $DOCKER_REGISTRY_TOKEN | docker login --username $DOCKER_REGISTRY_USER --password-stdin
+          docker build -t argosorg/trialgraph:$IMAGE_VERSION .
+          docker push argosorg/trialgraph:$IMAGE_VERSION
+      
+      - kubernetes/install-kubectl
+
+      - kubernetes/install-kubeconfig:
+          kubeconfig: PROD_CLUSTER
+          
+      - run: |
+          sudo mv ./bin/templater /usr/local/bin
+          templater ./k8s.deployment.yaml | kubectl apply -f -
+
+
+orbs:
+  kubernetes: circleci/kubernetes@0.7.0
+version: 2.1
+
+workflows:
+  trialgraph-automated-deployment:
+    jobs:
+      - build:
+          context: argos
+          filters:
+            branches:
+              only:
+                - master
