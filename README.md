@@ -31,6 +31,8 @@ ROOT_URI=https://root.new-aks-stage.linnovate.net
 DASHBOARD_PORT=3000
 ```
 
+Note: REACT_APP_PORT on trialdash/.env need to sync with DASHBOARD_PORT on argos/.env
+
 Build the docker images
 
 ```bash
