@@ -4,7 +4,7 @@ WORKDIR $APP_DIR
 
 # COPY ./trialdash/package*.json ./trialdash/yarn.lock $APP_DIR
 COPY ./trialdash/package.json $APP_DIR
-RUN yarn install
+RUN yarn
 
 # RUN yarn upgrade
 COPY ./trialdash $APP_DIR
